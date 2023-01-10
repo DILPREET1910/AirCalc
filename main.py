@@ -1,12 +1,12 @@
 import cv2
-from DILPREET1910 import HandLandmarks
+from DILPREET1910_Mediapipe import HandTracker
 from UI import Button
 
 ##############################
 # getting real time webcam feed
 ##############################
 cap = cv2.VideoCapture(0)
-detector = HandLandmarks(maxHands=1, detectionConfidence=0.5, trackingConfidence=0.5)
+detector = HandTracker(maxHands=1, detectionConfidence=0.5, trackingConfidence=0.5)
 
 # defining buttons
 buttonListValue = [['7', '8', '9', '/'],

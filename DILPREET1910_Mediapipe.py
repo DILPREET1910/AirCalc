@@ -3,7 +3,7 @@ import mediapipe as mp
 import math
 
 
-class HandLandmarks:
+class HandTracker:
 
     def __init__(self, mode=False, maxHands=1, detectionConfidence=0.8, trackingConfidence=0.8):
         self.mode = mode
@@ -82,31 +82,3 @@ class HandLandmarks:
 
     def getDistance(self):
         return self.distance
-
-
-def main():
-    cap = cv2.VideoCapture(0)
-    detector = HandLandmarks(maxHands=1, detectionConfidence=0.8, trackingConfidence=0.8)
-
-    while True:
-        success, frame = cap.read()
-        frame = cv2.resize(frame, (1080, 720))
-        frame = cv2.flip(frame, 1)
-
-        ##########################
-        # drawing hand landmarks
-        ##########################
-        # detect landmarks
-        image, results = detector.findLandmarks(frame)
-        cv2.imshow("Raw web cam feed", frame)
-
-        # defining when to close the webcam
-        if cv2.waitKey(10) & 0xFF == ord('q'):
-            break
-
-    cap.release()
-    cv2.destroyAllWindows()
-
-
-if __name__ == "__main__":
-    main()
