@@ -23,7 +23,9 @@ for x in range(4):
         buttonList.append(Button((xpos, ypos), 100, 100, buttonListValue[y][x]))
 # defining buttons end
 
+# Variables
 myEquation = ""
+delayCounter = 0
 
 while True:
     success, frame = cap.read()
@@ -58,14 +60,20 @@ while True:
         distance = detector.getDistance()
         if distance[0] < 50:
             for i, button in enumerate(buttonList):
-                if button.buttonClicked(frame, distance[1], distance[2]):
+                if button.buttonClicked(frame, distance[1], distance[2]) and delayCounter == 0:
                     valueAtButtonClicked = buttonListValue[int(i % 4)][int(i / 4)]
                     myEquation += valueAtButtonClicked
                     if valueAtButtonClicked == "AC":
                         myEquation = ""
-                if equalArea.equalsClicked(frame,distance[1],distance[2]):
-                    print("ok")
+                if equalArea.equalsClicked(frame, distance[1], distance[2]):
+                    myEquation = str(eval(myEquation))
+            delayCounter = 1
 
+    # Avoid duplicates
+    if delayCounter != 0:
+        delayCounter += 1
+        if delayCounter > 5:
+            delayCounter = 0
     # draw landmarks end
 
     cv2.imshow("Raw web cam feed", frame)
