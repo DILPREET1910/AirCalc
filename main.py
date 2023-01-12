@@ -2,6 +2,7 @@ import cv2
 from DILPREET1910_Mediapipe import HandTrackingModule
 from UI import Button
 from UI import Input
+from UI import Equals
 
 ##############################
 # getting real time webcam feed
@@ -44,9 +45,11 @@ while True:
     for button in buttonList:
         button.draw(frame)
     # equal to button
-    cv2.rectangle(frame, (1000, 580), (600, 500), (215, 215, 215), cv2.FILLED)
-    cv2.rectangle(frame, (1000, 580), (600, 500), (50, 50, 50), 3)
-    cv2.putText(frame, "=", (790, 550), cv2.FONT_HERSHEY_PLAIN, 2, (50, 50, 50), 2)
+    equalArea = Equals((600, 500), 400, 70)
+    equalArea.draw(frame)
+    # cv2.rectangle(frame, (1000, 580), (600, 500), (215, 215, 215), cv2.FILLED)
+    # cv2.rectangle(frame, (1000, 580), (600, 500), (50, 50, 50), 3)
+    # cv2.putText(frame, "=", (790, 550), cv2.FONT_HERSHEY_PLAIN, 2, (50, 50, 50), 2)
     # draw UI end
 
     # draw landmarks
@@ -60,6 +63,8 @@ while True:
                     myEquation += valueAtButtonClicked
                     if valueAtButtonClicked == "AC":
                         myEquation = ""
+                if equalArea.equalsClicked(frame,distance[1],distance[2]):
+                    print("ok")
 
     # draw landmarks end
 
