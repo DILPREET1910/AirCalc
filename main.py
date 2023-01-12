@@ -1,6 +1,7 @@
 import cv2
 from DILPREET1910_Mediapipe import HandTrackingModule
 from UI import Button
+from UI import Input
 
 ##############################
 # getting real time webcam feed
@@ -21,6 +22,7 @@ for x in range(4):
         buttonList.append(Button((xpos, ypos), 100, 100, buttonListValue[y][x]))
 # defining buttons end
 
+myEquation = ""
 
 while True:
     success, frame = cap.read()
@@ -36,9 +38,8 @@ while True:
 
     # draw UI
     # input area
-    cv2.rectangle(frame, (1000, 100), (600, 10), (255, 255, 255), cv2.FILLED)
-    cv2.rectangle(frame, (1000, 100), (600, 10), (50, 50, 50), 3)
-    cv2.putText(frame, "100 + 50 = 150", (600, 80), cv2.FONT_HERSHEY_PLAIN, 2, (50, 50, 50), 2)
+    inputArea = Input((600, 0), 400, 100, myEquation)
+    inputArea.draw(frame)
     # buttons
     for button in buttonList:
         button.draw(frame)
@@ -52,7 +53,14 @@ while True:
     if results.multi_hand_landmarks:
         detector.drawLandmarks(frame, results, False, 8, 12, True, True, 50)
         distance = detector.getDistance()
-        print(distance)
+        if distance[0] < 50:
+            for i, button in enumerate(buttonList):
+                if button.buttonClicked(frame, distance[1], distance[2]):
+                    valueAtButtonClicked = buttonListValue[int(i % 4)][int(i / 4)]
+                    myEquation += valueAtButtonClicked
+                    if valueAtButtonClicked == "AC":
+                        myEquation = ""
+
     # draw landmarks end
 
     cv2.imshow("Raw web cam feed", frame)
