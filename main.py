@@ -49,9 +49,6 @@ while True:
     # equal to button
     equalArea = Equals((600, 500), 400, 70)
     equalArea.draw(frame)
-    # cv2.rectangle(frame, (1000, 580), (600, 500), (215, 215, 215), cv2.FILLED)
-    # cv2.rectangle(frame, (1000, 580), (600, 500), (50, 50, 50), 3)
-    # cv2.putText(frame, "=", (790, 550), cv2.FONT_HERSHEY_PLAIN, 2, (50, 50, 50), 2)
     # draw UI end
 
     # draw landmarks
