@@ -89,3 +89,21 @@ class Equals:
             return True
         else:
             return False
+
+
+class Delete:
+    def __init__(self, position, width, height):
+        self.position = position
+        self.width = width
+        self.height = height
+
+    def draw(self, image):
+        cv2.rectangle(image, self.position, (self.position[0] + self.width, self.position[1] + self.height), (0, 0, 0),
+                      cv2.FILLED)
+
+    def deleteButtonClicked(self, image, x, y):
+        if self.position[0] < x < self.position[0] + self.width and \
+                self.position[1] < y < self.position[1] + self.height:
+            return True
+        else:
+            return False

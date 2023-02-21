@@ -1,8 +1,10 @@
 import cv2
 from DILPREET1910_Mediapipe import HandTrackingModule
+
 from UI import Button
-from UI import Input
+from UI import Delete
 from UI import Equals
+from UI import Input
 
 ##############################
 # getting real time webcam feed
@@ -43,6 +45,9 @@ while True:
     # input area
     inputArea = Input((600, 0), 400, 100, myEquation)
     inputArea.draw(frame)
+    # delete button
+    deleteButton = Delete((900, 0), 100, 100)
+    deleteButton.draw(frame)
     # buttons
     for button in buttonList:
         button.draw(frame)
@@ -58,12 +63,19 @@ while True:
         if distance[0] < 50:
             for i, button in enumerate(buttonList):
                 if button.buttonClicked(frame, distance[1], distance[2]) and delayCounter == 0:
+                    print("butting going wam")
                     valueAtButtonClicked = buttonListValue[int(i % 4)][int(i / 4)]
                     myEquation += valueAtButtonClicked
                     if valueAtButtonClicked == "AC":
                         myEquation = ""
                 if equalArea.equalsClicked(frame, distance[1], distance[2]):
                     myEquation = str(eval(myEquation))
+                if deleteButton.deleteButtonClicked(frame, distance[1], distance[2]) and delayCounter == 0:
+                    temp = ""
+                    for j in range(0, len(myEquation) - 1):
+                        temp += myEquation[j]
+                    myEquation = temp
+                    delayCounter = 1
             delayCounter = 1
 
     # Avoid duplicates
