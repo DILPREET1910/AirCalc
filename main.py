@@ -29,6 +29,10 @@ for x in range(4):
 myEquation = ""
 delayCounter = 0
 
+# delete button image
+deleteButtonImg = cv2.imread('deleteButton.jpg')
+deleteButtonImg = cv2.resize(deleteButtonImg, (50, 50))
+
 while True:
     success, frame = cap.read()
     frame = cv2.resize(frame, (1080, 720))
@@ -46,8 +50,8 @@ while True:
     inputArea = Input((600, 0), 400, 100, myEquation)
     inputArea.draw(frame)
     # delete button
-    deleteButton = Delete((900, 0), 100, 100)
-    deleteButton.draw(frame)
+    deleteButton = Delete((925, 25), 50, 50)
+    deleteButton.draw(frame, deleteButtonImg)
     # buttons
     for button in buttonList:
         button.draw(frame)
