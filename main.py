@@ -67,13 +67,17 @@ while True:
         if distance[0] < 50:
             for i, button in enumerate(buttonList):
                 if button.buttonClicked(frame, distance[1], distance[2]) and delayCounter == 0:
-                    print("butting going wam")
+                    if myEquation == "Error":
+                        myEquation = ""
                     valueAtButtonClicked = buttonListValue[int(i % 4)][int(i / 4)]
                     myEquation += valueAtButtonClicked
                     if valueAtButtonClicked == "AC":
                         myEquation = ""
                 if equalArea.equalsClicked(frame, distance[1], distance[2]):
-                    myEquation = str(eval(myEquation))
+                    try:
+                        myEquation = str(eval(myEquation))
+                    except:
+                        myEquation = "Error"
                 if deleteButton.deleteButtonClicked(frame, distance[1], distance[2]) and delayCounter == 0:
                     temp = ""
                     for j in range(0, len(myEquation) - 1):
