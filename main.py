@@ -1,5 +1,5 @@
 import cv2
-from DILPREET1910_Mediapipe import HandTrackingModule
+from Hand_Gestures import HandTrackingModule
 
 from UI import Button
 from UI import Delete
